@@ -8,13 +8,9 @@ import java.io.InputStream;
 
 /**
  * Created by shengxingyue on 2017/11/3.
+ * 不需要手动关闭资源
  */
 public class Try_With_Resources {
-
-    public static void main(String[] args) {
-
-    }
-
     public static void java5() throws IOException {
         InputStream is = null;
         try {
