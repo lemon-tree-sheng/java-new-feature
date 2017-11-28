@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -20,14 +19,29 @@ public class Demo2 {
         Property p4 = new Property("肯德基", 6000, 200, 4);
         List<Property> propertyList = Arrays.asList(p1, p2, p3, p4);
 
-        // 两种 lambda 方式排序，推荐下面一个
-        Collections.sort(propertyList, (x, y) -> x.distance.compareTo(y.distance));
-        Collections.sort(propertyList, Comparator.comparing(Property::getDistance));
-        System.out.println("离我最近的店铺是：" + propertyList.get(0).getName());
+        // for 循环
+        int count = 0;
+        for (Property property : propertyList) {
+            if (property.getSales() > 1000) {
+                count++;
+            }
+        }
+        System.out.println("销量大于1000的店铺数量:" + count);
 
-        String result = propertyList.stream().sorted(Comparator.comparing(Property::getDistance)).findFirst().get().getName();
-        System.out.println("离我最近的店铺是：" + result);
+        // 迭代器
+        int count2 = 0;
+        Iterator iterator = propertyList.iterator();
+        while (iterator.hasNext()) {
+            Property property = (Property) iterator.next();
+            if (property.getSales() > 1000) {
+                count2++;
+            }
+        }
+        System.out.println("销量大于1000的店铺数量:" + count2);
 
+        // stream api
+        long count3 = propertyList.stream().filter(property -> property.getSales() > 1000).count();
+        System.out.println("销量大于1000的店铺数量:" + count3);
     }
 
 }
@@ -38,7 +52,7 @@ public class Demo2 {
 @Data
 @AllArgsConstructor
 class Property {
-    String  name;
+    String name;
     Integer distance;
     Integer sales;
     Integer priceLevel;
