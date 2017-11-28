@@ -4,29 +4,29 @@ package com.sheng.java8.lambda;
  * @author shengxingyue, created on 2017/11/28
  */
 public class Demo1 {
+
+    /**
+     * 声明一个函数式接口
+     * @param <T>
+     */
+    @FunctionalInterface
+    interface Predicate<T> {
+        boolean test(T t);
+    }
+
+    /**
+     * 使用函数式接口执行判断逻辑
+     * @param x
+     * @param predicate
+     * @return
+     */
+    public static boolean test(int x, Predicate<Integer> predicate) {
+        return predicate.test(x);
+    }
+
     public static void main(String[] args) {
-        Thread demoThread = new Thread(new DemoThread(), "demo-thread");
-        demoThread.start();
-
-        Thread demoThread2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("do something");
-            }
-        });
-        demoThread2.start();
-
-        Thread demoThread3 = new Thread(() -> System.out.println("do something"));
-        demoThread3.start();
+        boolean isAdult = test(17, x -> x >= 18);
+        System.out.println(isAdult);
     }
-}
 
-/**
- * java8之前新写一个线程
- */
-class DemoThread implements Runnable {
-    @Override
-    public void run() {
-        System.out.println("do something");
-    }
 }
