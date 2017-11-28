@@ -24,6 +24,10 @@ public class Demo2 {
         Collections.sort(propertyList, (x, y) -> x.distance.compareTo(y.distance));
         Collections.sort(propertyList, Comparator.comparing(Property::getDistance));
         System.out.println("离我最近的店铺是：" + propertyList.get(0).getName());
+
+        String result = propertyList.stream().sorted(Comparator.comparing(Property::getDistance)).findFirst().get().getName();
+        System.out.println("离我最近的店铺是：" + result);
+
     }
 
 }
