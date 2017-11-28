@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author shengxingyue, created on 2017/11/28
@@ -42,6 +44,14 @@ public class Demo2 {
         // stream api
         long count3 = propertyList.stream().filter(property -> property.getSales() > 1000).count();
         System.out.println("销量大于1000的店铺数量:" + count3);
+
+        // 使用 collect 收集处理结果
+        List<String> names = propertyList.stream().filter(property -> property.getPriceLevel() < 4)
+                .sorted(Comparator.comparing(Property::getDistance))
+                .map(Property::getName)
+                .limit(2)
+                .collect(Collectors.toList());
+        names.stream().forEach((name) -> System.out.println(name));
     }
 
 }
