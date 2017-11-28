@@ -7,6 +7,14 @@ public class Demo1 {
     public static void main(String[] args) {
         Thread demoThread = new Thread(new DemoThread(), "demo-thread");
         demoThread.start();
+
+        Thread demoThread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("do something");
+            }
+        });
+        demoThread2.start();
     }
 }
 
