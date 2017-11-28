@@ -15,6 +15,9 @@ public class Demo1 {
             }
         });
         demoThread2.start();
+
+        Thread demoThread3 = new Thread(() -> System.out.println("do something"));
+        demoThread3.start();
     }
 }
 
